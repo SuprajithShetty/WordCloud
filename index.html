@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Word Cloud Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/atkinson-hyperlegible" rel="stylesheet">      
+    <link href="./dist/site.css" rel="stylesheet">
+    <link href="./dist/dd.css" rel="stylesheet" integrity="" crossorigin="anonymous">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55422968-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-55422968-1');
+    </script>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+    <div class="container-fluid">
+        <form class="needs-validation" novalidate>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>Word Cloud Generator</h1>
+                            <p>Click <a href="https://jianliew.me/projects">here</a> to return to projects page</p>
+                            <div class="mb-3 form-control form-control-sm">
+
+                                <label for="exampleFormControlTextarea1" class="form-label"><strong>Please select
+                                        text cleaning methodologies:</strong></label>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="removeStopWords" checked>
+                                    <label class="form-check-label" for="removeStopWords" id="">
+                                        Remove stop words
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="removeNumbers">
+                                    <label class="form-check-label" for="removeNumbers" id="">
+                                        Remove numbers
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="removeSpecialCharacters">
+                                    <label class="form-check-label" for="removeSpecialCharacters">
+                                        Remove special characters
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 form-control form-control-sm">
+                                <label for="exampleFormControlTextarea1" class="form-label"><strong>Please select
+                                        text transformation methodology:</strong></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="transformationMethodology"
+                                        value="none" id="none" checked>
+                                    <label class="form-check-label" for="none">
+                                        None
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="transformationMethodology"
+                                        value="stemming" id="stemmingRadio">
+                                    <label class="form-check-label" for="stemmingRadio">
+                                        Stemming
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="transformationMethodology"
+                                        value="lemmatization" id="lemmaRadio">
+                                    <label class="form-check-label" for="lemmaRadio">
+                                        Lemmatization
+                                    </label>
+                                    <div id="lemmatizationHelpBlock" class="form-text">
+                                        <strong class="link-danger">Please note that, lemmatization may take a long
+                                            time.
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 form-control form-control-sm">
+                                <label for="exampleFormControlTextarea1" class="form-label"><strong>Please select
+                                        word display methodology:</strong></label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="wordCountMethodology" id="wordCount"
+                                        checked>
+                                    <label class="form-check-label" for="wordCount">
+                                        Word Count
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="wordCountMethodology" id="randomWods"
+                                        disabled>
+                                    <label class="form-check-label" for="randomWods">
+                                        Random Words
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 form-control form-control-sm">
+                                <label for="wordCloudSettings" class="form-label"><strong>Please configure
+                                        word
+                                        cloud
+                                        settings:</strong></label>
+                                <div class="mb-3 row">
+                                    <label for="fontFamily"
+                                        class="col-sm-2 col-form-label">Font-family</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-select" aria-label="Default select example" id="fontFamily"
+                                            required>
+                                            <option value="sans-serif" style="font-family: sans-serif;" selected>
+                                                sans-serif</option>
+                                            <option value="Atkinson Hyperlegible" style="font-family:'Atkinson Hyperlegible';">
+                                                Atkinson Hyperlegible</option>
+                                            <option value="impact" style="font-family: impact;">impact</option>
+                                            <option value="roboto-condensed" style="font-family: roboto-condensed;">
+                                                roboto-condensed</option>
+                                            <option value="Helvetica" style="font-family: Helvetica;">Helvetica</option>
+                                            <option value="Futura" style="font-family: futura;">Futura</option>
+                                            <option value="Bodoni" style="font-family: bodoni;">Bodoni</option>
+                                            <option value="Bembo" style="font-family: bembo;">Bembo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-sm-2 ">
+                                        <label for="fontScale" class="col-form-label">Font-Scale</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control float-end" id="fontScale" min="5"
+                                            max="25" value="10" aria-describedby="" required>
+                                        <div id="numberHelp" class="form-text">The base size of the font</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+
+                                    <div class="col col-sm-2">
+                                        <label for="colourSelection" class="col-form-label">Colour selection:</label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="radio" class="btn-check" name="colourGeneration" id="option1" value="singleColour"
+                                            autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary" for="option1">Single Colour</label>
+
+                                        <input type="radio" class="btn-check" name="colourGeneration" id="option2"
+                                            autocomplete="off" value="presetColourTone">
+                                        <label class="btn btn-outline-primary" for="option2">Preset colour tones</label>
+                                    </div>
+                                </div>
+
+
+                                <div id="singleColourDiv">
+                                    <div class="mb-3 row">
+                                        <div class="col col-sm-2">
+                                            <label for="colourPicker" class="col-form-label">Colour</label>
+                                        </div>
+                                        <div class="col-sm-10">
+                                            <a href type="text" style="background-color: black;" class="form-control float-end" id="colourPicker"
+                                                aria-describedby=""><p></p></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="colourSchemeDiv" class="d-none">
+                                    <div class="mb-3 row">
+                                        <label for="colourScheme"
+                                            class="col-sm-2 col-form-label">Colour-Scheme</label>
+                                        <div class="col-sm-10">
+                                            <div class="">
+                                            <select class="form-select selectpicker colourScheme" aria-label="Default select example"
+                                                id="colourScheme" is="ms-dropdown">
+                                             
+                                                <option value="d3.schemeCategory10"
+                                                    data-image="./images/category10.png" selected>
+                                                    Category 10</option>
+                                                <option value="d3.schemeAccent" data-image="./images/Accent.png" class="form-control">
+                                                    Accent</option>
+                                                <option value="d3.schemePaired" data-image="./images/Paired.png">
+                                                    Paired</option>
+                                                <option value="d3.schemeDark2" data-image="./images/dark2.png">Dark 2
+                                                </option>
+                                                <option value="d3.schemeTableau10" data-image="./images/Tableau10.png">
+                                                    Tableau 10</option>
+                                                <option value="d3.schemePastel1" data-image="./images/Pastel1.png">
+                                                    Pastel 1
+                                                </option>
+                                                <option value="d3.interpolateBlues" data-image="./images/blues.png">
+                                                    Blues
+                                                </option>
+                                                <option value="d3.interpolateGreens" data-image="./images/Greens.png">
+                                                    Greens
+                                                </option>
+                                                <option value="d3.interpolateCool" data-image="./images/cool.png">Cool
+                                                </option>
+                                                <option value="d3.interpolateCividis" data-image="./images/cividis.png">
+                                                    Civids
+                                                </option>
+                                                <option value="d3.interpolateRdGy" data-image="./images/RdGy.png">
+                                                    Red Grey
+                                                </option>
+												<option value="d3.interpolatePurples" data-image="./images/Purples.png">
+                                                    Purple
+                                                </option>
+												<option value="d3.interpolateOranges" data-image="./images/Oranges.png">
+                                                    Orange
+                                                </option>
+												<option value="d3.interpolateGreys" data-image="./images/Greys.png">
+                                                    Grey Black
+                                                </option>
+												<option value="d3.interpolateMagma" data-image="./images/magma.png">
+                                                    Magma
+                                                </option>
+												<option value="d3.interpolateBrBG" data-image="./images/BrBG.png">
+                                                    Orange Green
+                                                </option>
+												<option value="d3.interpolatePuOr" data-image="./images/PuOr.png">
+                                                    Purple Orange
+                                                </option>
+												<option value="d3.interpolateRdBu" data-image="./images/RdBu.png">
+                                                    Red Blue
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+
+                                <div class="mb-3 row">
+                                    <div class="row justify-content-end">
+                                        <div class=" col-sm-10">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                    id="reverseColourOrdering">
+                                                <label class="form-check-label" for="reverseColourOrdering" id="">
+                                                    Reverse colour ordering
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="noOfOrientations" class="col-sm-2 col-form-label">No of
+                                        Orientation</label>
+
+                                    <div class="col-sm-2">
+                                        <input type="number" class="form-control float-end" id="noOfOrientations"
+                                            min="1" max="10" value="1" aria-describedby="" required>
+                                    </div>
+                                    <label for="startAngle" class="col-sm-2 col-form-label">Start
+                                        Angle</label>
+                                    <div class="col-sm-2">
+                                        <input type="number" class="form-control float-end" id="startAngle" min="-90"
+                                            max="90" value="0" aria-describedby="" required>
+                                    </div>
+                                    <label for="endAngle" class="col-sm-2 col-form-label">End
+                                        Angle</label>
+
+                                    <div class="col-sm-2">
+                                        <input type="number" class="form-control float-end" id="endAngle" min="-90"
+                                            max="90" value="90" aria-describedby="" required>
+                                    </div>
+                                    <div id="passwordHelpBlock" class="form-text">
+                                        <strong>*The number of orientations indicates the amount of differently angled
+                                            words
+                                            from start angle till end angle. Leave default if uncertain.</strong>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="spiralRadio" class="col-sm-2 col-form-label">Spiral</label>
+                                    <div class="col-sm-10">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spiral"
+                                                value="archimedean" id="archimedeanRadio" checked>
+                                            <label class="form-check-label" for="archimedeanRadio">
+                                                Archimedean
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="spiral"
+                                                value="rectangular" id="rectangleRadio">
+                                            <label class="form-check-label" for="rectangleRadio">
+                                                Rectangular
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="capitalisation" class="col-sm-2 col-form-label">Capitalisation</label>
+                                    <div class="col-sm-10">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="capitalisation"
+                                                value="lower" id="lowerRadio" checked>
+                                            <label class="form-check-label" for="lowerRadio">
+                                                All lower-case
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="capitalisation"
+                                                value="upper" id="upperRadio">
+                                            <label class="form-check-label" for="upperRadio">
+                                                All upper-case
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="capitalisation"
+                                                value="firstUpper" id="firstUpperRadio">
+                                            <label class="form-check-label" for="firstUpperRadio">
+                                                First character upper-case
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label for="inputString" class="form-label"><strong>Please enter
+                                        article:</strong></label>
+                                <textarea class="form-control" rows="4" placeholder="" id="inputString" required>Australia, officially the Commonwealth of Australia, is a sovereign country comprising the mainland of the Australian continent, the island of Tasmania, and numerous smaller islands.[13] With an area of 7,617,930 square kilometres (2,941,300 sq mi),[14] Australia is the largest country by area in Oceania and the world's sixth-largest country. Australia is the oldest,[15] flattest,[16] and driest inhabited continent,[17][18] with the least fertile soils.[19][20] It is a megadiverse country, and its size gives it a wide variety of landscapes and climates, with deserts in the centre, tropical rainforests in the north-east, and mountain ranges in the south-east.
+
+                                    The ancestors of Aboriginal Australians began arriving from south east Asia approximately 65,000 years ago, during the last ice age.[21][22] Arriving by sea, they settled the continent and had formed approximately 250 distinct language groups by the time of European settlement, maintaining some of the longest known continuing artistic and religious traditions in the world.[23] Australia's written history commenced with the European maritime exploration of Australia. The Dutch navigator Willem Janszoon was the first known European to reach Australia, in 1606. In 1770, the British explorer James Cook mapped and claimed the east coast of Australia for Great Britain, and the First Fleet of British ships arrived at Sydney in 1788 to establish the penal colony of New South Wales. The European population grew in subsequent decades, and by the end of the 1850s gold rush, most of the continent had been explored by European settlers and an additional five self-governing British colonies established. Democratic parliaments were gradually established through the 19th century, culminating with a vote for the federation of the six colonies and foundation of the Commonwealth of Australia on 1 January 1901. Australia has since maintained a stable liberal democratic political system and wealthy market economy.
+                                    
+                                    Politically, Australia is a federal parliamentary constitutional monarchy, comprising six states and ten territories. Australia's population of nearly 26 million[7] is highly urbanised and heavily concentrated on the eastern seaboard.[24] Canberra is the nation's capital, while its most populous city and financial centre is Sydney. The next four largest cities are Melbourne, Brisbane, Perth, and Adelaide. Australia's demography has been shaped by centuries of immigration: immigrants account for 30% of the country's population,[25] and almost half of Australians have at least one parent born overseas.[26] Australia's abundant natural resources and well-developed international trade relations are crucial to the country's economy, which generates its income from various sources including services, mining exports, banking, manufacturing, agriculture and international education.[27][28][29]
+                                    
+                                    Australia is a highly developed country with a high-income economy. As of 2022, it was the world's twelfth-largest economy with the ninth-highest per capita income.[30] In 2017, it ranked as fifth-highest Human Development Index.[31][32] Australia is a regional power, and has the world's thirteenth-highest military expenditure.[33] Australia ranks amongst the highest in the world for quality of life, democracy, health, education, economic freedom, civil liberties, safety, and political rights,[34] with all its major cities faring exceptionally in global comparative livability surveys.[35] It is a member of international groupings including the United Nations, the G20, the OECD, the WTO, ANZUS, AUKUS, Five Eyes, the Quad, APEC, the Pacific Islands Forum, the Pacific Community and the Commonwealth of Nations.
+
+                                </textarea>
+                                <div class="invalid-feedback">
+                                    Please provide an input in the text area.
+                                </div>
+                                <div id="passwordHelpBlock" class="form-text">
+                                    Please note that a long article may take a long processing time.
+                                </div>
+                                <p></p>
+                                <div><button type="button" class="btn btn-primary" id="run">Create word cloud</button>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary d-none" type="submit" id="running" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        Loading...
+                                    </button>
+                                </div>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card div-result d-none">
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="">
+                                    <p></p>
+                                    <div id="cloud"></div>
+                                    <div class="row ">
+                                        <div class="justify-content-center">
+                                            <button type="button" class="btn btn-primary d-none" id="download">Download
+                                                as
+                                                PNG</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+
+                    </div>
+
+                </div>
+            </div>
+            <footer class="footer mt-auto py-3 bg-light">
+                <div class="container">
+                    <span class="text-muted">Project can be found <a
+                            href="https://github.com/JianLoong/word-cloud-generator">here</a></span>
+                </div>
+            </footer>
+        </form>
+    </div>
+
+    <script src="./dist/main.js" crossorigin="anonymous"></script>
+    <!-- <script src="./d3/d3-to-img.js"></script>-->
+    <!-- <script src="./dist/dd.min.js"></script> -->
+</body>
+
+</html>
